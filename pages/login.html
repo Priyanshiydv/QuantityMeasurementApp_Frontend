@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In — QuantiMeasure</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="auth-body">
+
+    <div class="auth-container">
+
+        <!-- Left Panel -->
+        <div class="auth-left">
+            <div class="auth-logo">
+                <span class="logo-icon">⚖️</span>
+                <h1>Quanti<span>Measure</span></h1>
+            </div>
+            <p class="auth-tagline">Precision measurement intelligence</p>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <div>
+                    <h3>5 Core Operations</h3>
+                    <p>Convert, Compare, Add, Subtract, Divide</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📏</div>
+                <div>
+                    <h3>4 Measurement Types</h3>
+                    <p>Length, Weight, Volume, Temperature</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🕐</div>
+                <div>
+                    <h3>Full History</h3>
+                    <p>Track all your calculations</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="auth-right">
+
+            <!-- Tabs -->
+            <div class="auth-tabs">
+                <span class="auth-tab active">Sign In</span>
+                <a href="signup.html" class="auth-tab">Create Account</a>
+            </div>
+
+            <!-- Heading -->
+            <div class="auth-heading">
+                <h2>Welcome back</h2>
+                <p>Sign in to continue measuring</p>
+            </div>
+
+           <div class="msg error" id="errorMsg">
+                <span id="errorText"></span>
+            </div>
+            <div class="msg success" id="successMsg">
+                <span id="successText"></span>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+
+                <div class="form-group">
+                    <label>Username</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">👤</span>
+                        <input type="text" id="username"
+                               placeholder="Enter your username"
+                               required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="password"
+                               placeholder="Enter your password"
+                               required />
+                        <button type="button" class="eye-btn"
+                                onclick="togglePassword('password', this)">
+                            👁️
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-auth" id="loginBtn">
+                    Sign In →
+                </button>
+
+            </form>
+
+            <div class="auth-footer">
+                New to QuantiMeasure?
+                <a href="signup.html">Create account</a>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../js/auth.js"></script>
+
+</body>
+</html>

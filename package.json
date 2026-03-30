@@ -1,0 +1,12 @@
+{
+  "name": "quantitymeasurementapp_frontend",
+  "version": "1.0.0",
+  "description": "<<<<<<< HEAD\r # QuantityMeasurementApp Frontend\r =======\r # QuantityMeasurementApp_Frontend\r >>>>>>> 2ac70dc904df04ed1103ebde3d1947d89c437dca",
+  "main": "index.js",
+  "scripts": {
+    "start": "json-server --watch data/db.json --port 3000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile — QuantiMeasure</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <div class="app-layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <span class="logo-icon">⚖️</span>
+                <h2>Quanti<span>Measure</span></h2>
+            </div>
+
+            <a href="dashboard.html" class="nav-item">
+                <span class="nav-icon">🧮</span> Calculator
+            </a>
+            <a href="history.html" class="nav-item">
+                <span class="nav-icon">🕐</span> History
+            </a>
+            <a href="profile.html" class="nav-item active">
+                <span class="nav-icon">👤</span> Profile
+            </a>
+
+            <!-- User Info -->
+            <div class="sidebar-user">
+                <div class="user-avatar" id="userAvatar">U</div>
+                <div class="user-info">
+                    <div class="user-name" id="userName">User</div>
+                    <div class="user-role">Member</div>
+                </div>
+            </div>
+
+            <button class="signout-btn" onclick="signOut()">
+                ↪ Sign Out
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <h1 class="page-title">My Profile</h1>
+            <p class="page-subtitle">
+                Your account information
+            </p>
+
+            <!-- Profile Card -->
+            <div class="profile-card">
+
+                <div class="profile-avatar" id="profileAvatar">
+                    U
+                </div>
+
+                <div class="profile-field">
+                    <label>Username</label>
+                    <p id="profileUsername">Loading...</p>
+                </div>
+
+                <div class="profile-field">
+                    <label>Email</label>
+                    <p id="profileEmail">Loading...</p>
+                </div>
+
+                <div class="profile-field">
+                    <label>Role</label>
+                    <p>
+                        <span class="role-badge"
+                              id="profileRole">
+                            User
+                        </span>
+                    </p>
+                </div>
+
+                <div class="profile-field">
+                    <label>Member Since</label>
+                    <p id="profileJoined">—</p>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <script src="../js/profile.js"></script>
+
+</body>
+</html>

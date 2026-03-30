@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History — QuantiMeasure</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <div class="app-layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <span class="logo-icon">⚖️</span>
+                <h2>Quanti<span>Measure</span></h2>
+            </div>
+
+            <a href="dashboard.html" class="nav-item">
+                <span class="nav-icon">🧮</span> Calculator
+            </a>
+            <a href="history.html" class="nav-item active">
+                <span class="nav-icon">🕐</span> History
+            </a>
+            <a href="profile.html" class="nav-item">
+                <span class="nav-icon">👤</span> Profile
+            </a>
+
+            <!-- User Info -->
+            <div class="sidebar-user">
+                <div class="user-avatar" id="userAvatar">U</div>
+                <div class="user-info">
+                    <div class="user-name" id="userName">User</div>
+                    <div class="user-role">Member</div>
+                </div>
+            </div>
+
+            <button class="signout-btn" onclick="signOut()">
+                ↪ Sign Out
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <h1 class="page-title">Calculation History</h1>
+            <p class="page-subtitle">
+                Browse your past measurements
+            </p>
+
+            <!-- History Toggle -->
+            <div style="display:flex;gap:10px;margin-bottom:16px;">
+                <button id="myHistoryBtn" class="btn-fetch"
+                        onclick="switchHistoryMode('my')"
+                        style="padding:10px 20px;">
+                    My History
+                </button>
+                <button id="allHistoryBtn" class="btn-count"
+                        onclick="switchHistoryMode('all')">
+                    All History
+                </button>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+
+                <div class="filter-group">
+                    <label>Filter By</label>
+                    <select id="filterBy"
+                            onchange="updateFilterOptions()">
+                        <option value="all">All History</option>
+                        <option value="operation">Operation</option>
+                        <option value="measurement">
+                            Measurement Type
+                        </option>
+                    </select>
+                </div>
+
+                <div class="filter-group" id="valueGroup">
+                    <label>Value</label>
+                    <select id="filterValue">
+                        <option value="">Select...</option>
+                    </select>
+                </div>
+
+                <button class="btn-fetch"
+                        onclick="fetchHistory()">
+                    Fetch History
+                </button>
+
+                <button class="btn-count"
+                        onclick="getCount()">
+                    Get Count
+                </button>
+
+                <div id="countBadge" style="
+                    display:none;
+                    padding: 10px 16px;
+                    background: rgba(79,142,247,0.15);
+                    border: 1px solid #4f8ef7;
+                    border-radius: 8px;
+                    color: #4f8ef7;
+                    font-weight: 700;
+                    font-size: 14px;">
+                </div>
+
+            </div>
+
+            <!-- History List -->
+            <div id="historyList">
+                <div class="empty-state">
+                    <div class="empty-icon">🕐</div>
+                    <p>Click "Fetch History" to load
+                       your calculations</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="../js/history.js"></script>
+
+</body>
+</html>

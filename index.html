@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QuantiMeasure</title>
+</head>
+<body>
+    <script>
+        if (localStorage.getItem("accessToken")) {
+            window.location.href = "pages/dashboard.html";
+        } else {
+            window.location.href = "pages/login.html";
+        }
+    </script>
+</body>
+</html>
+
