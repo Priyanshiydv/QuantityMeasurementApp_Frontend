@@ -1,5 +1,6 @@
 # QuantityMeasurementApp Frontend
 
+<<<<<<< HEAD
 ## Project Overview
 The QuantityMeasurementApp Frontend is a full-stack frontend project built in two phases — UC19 using plain HTML/CSS/JavaScript with JSON Server, and UC20 using Angular 17 framework — both connected to the ASP.NET Core UC18 backend API.
 
@@ -209,3 +210,5 @@ All API calls connect to ASP.NET Core UC18 backend:
 
 ## Author
 **Priyanshi Yadav**
+=======
+>>>>>>> ca6c887fc9f6a7034dc0c1e734f0a040aec8899b
