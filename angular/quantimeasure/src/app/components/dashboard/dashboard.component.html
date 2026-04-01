@@ -1,0 +1,225 @@
+<div class="app-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span>⚖️</span>
+      <h2>Quanti<span>Measure</span></h2>
+    </div>
+
+    <a routerLink="/dashboard" class="nav-item active">
+      <span class="nav-icon">🧮</span> Calculator
+    </a>
+    <a routerLink="/history" class="nav-item">
+      <span class="nav-icon">🕐</span> History
+    </a>
+    <a routerLink="/profile" class="nav-item">
+      <span class="nav-icon">👤</span> Profile
+    </a>
+
+    <div class="sidebar-user">
+      <div class="user-avatar">{{ userAvatar }}</div>
+      <div class="user-info">
+        <div class="user-name">{{ username }}</div>
+        <div class="user-role">
+        {{ isLoggedIn ? 'Member' : 'Guest'}}
+        </div>
+      </div>
+    </div>
+
+    <!-- Show Sign Out if logged in -->
+    <button class="signout-btn"
+            *ngIf="isLoggedIn"
+            (click)="signOut()">
+      ↪ Sign Out
+    </button>
+
+    <!-- Show Login if not logged in -->
+    <a routerLink="/login"
+      class="nav-item"
+      *ngIf="!isLoggedIn"
+      style="color: var(--accent-blue);
+              margin: 2px 8px;">
+      ↪ Sign In
+    </a>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" (click)="toggleTheme()">
+    <span class="toggle-icon">{{ getThemeIcon() }}</span>
+    {{ getThemeLabel() }}
+    </button>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Stats Cards -->
+    <div class="stats-grid" *ngIf="!statsLoading">
+    <div class="stat-card">
+        <div class="stat-icon">🧮</div>
+        <div class="stat-info">
+        <div class="stat-value">{{ totalOps }}</div>
+        <div class="stat-label">Total Operations</div>
+        </div>
+        <div class="stat-badge stat-badge--blue">My History</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-info">
+        <div class="stat-value">{{ mostUsedOp }}</div>
+        <div class="stat-label">Most Used Op</div>
+        </div>
+        <div class="stat-badge stat-badge--purple">Favourite</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">📐</div>
+        <div class="stat-info">
+        <div class="stat-value">{{ mostUsedType }}</div>
+        <div class="stat-label">Top Category</div>
+    </div>
+        <div class="stat-badge stat-badge--green">Popular</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">🕐</div>
+        <div class="stat-info">
+        <div class="stat-value">{{ lastOp }}</div>
+        <div class="stat-label">{{ lastOpTime }}</div>
+        </div>
+        <div class="stat-badge stat-badge--orange">Latest</div>
+    </div>
+    </div>
+
+    <!-- Stats Skeleton while loading -->
+    <div class="stats-grid" *ngIf="statsLoading">
+    <div class="stat-card stat-skeleton"
+        *ngFor="let i of [1,2,3,4]">
+        <div class="skeleton-box"></div>
+        <div class="skeleton-lines">
+        <div class="skeleton-line"></div>
+        <div class="skeleton-line short"></div>
+        </div>
+    </div>
+    </div>
+
+
+    <h1 class="page-title">Measurement Calculator</h1>
+    <p class="page-subtitle">Perform conversions and operations with precision</p>
+
+    <!-- Measurement Type -->
+    <div class="section-label">Measurement Type</div>
+    <div class="type-tabs">
+      <button
+        *ngFor="let type of types"
+        class="type-tab"
+        [class.active]="selectedType === type.key"
+        (click)="selectType(type.key)">
+        {{ type.icon }} {{ type.key }}
+      </button>
+    </div>
+
+    <!-- Operation -->
+    <div class="section-label">Operation</div>
+    <div class="operations-grid">
+      <button
+        *ngFor="let op of operations"
+        class="op-btn"
+        [class.active]="selectedOp === op.key"
+        (click)="selectOp(op.key)">
+        <span class="op-icon">{{ op.icon }}</span>
+        <span class="op-name">{{ op.name }}</span>
+        <span class="op-desc">{{ op.desc }}</span>
+      </button>
+    </div>
+
+    <!-- Calculator Card -->
+    <div class="calc-card">
+      <div class="section-label">Enter Values</div>
+
+      <div class="values-grid">
+        <!-- Value 1 -->
+        <div>
+          <label>Value 1</label>
+          <input type="number" [(ngModel)]="value1" placeholder="0.00" step="any" />
+          <label>Unit</label>
+          <select [(ngModel)]="unit1">
+            <option *ngFor="let u of units" [value]="u">{{ u }}</option>
+          </select>
+        </div>
+
+        <!-- Swap -->
+        <button class="swap-btn" (click)="swapValues()">⇄</button>
+
+        <!-- Value 2 -->
+        <div>
+          <label>Value 2</label>
+          <input type="number" [(ngModel)]="value2" placeholder="0.00" step="any" />
+          <label>Unit</label>
+          <select [(ngModel)]="unit2">
+            <option *ngFor="let u of units" [value]="u">{{ u }}</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Target Unit -->
+      <div style="margin-bottom: 16px;">
+        <label style="font-size:11px;font-weight:700;letter-spacing:1px;
+                      color:var(--text-secondary);text-transform:uppercase;
+                      margin-bottom:8px;display:block;">
+          Result Unit (optional)
+        </label>
+        <select [(ngModel)]="targetUnit"
+                style="width:100%;padding:12px 16px;background:var(--input-bg);
+                       border:1px solid var(--border-color);border-radius:8px;
+                       color:var(--text-primary);font-size:14px;outline:none;">
+          <option value="">Same as Unit 1 (default)</option>
+          <option *ngFor="let u of units" [value]="u">{{ u }}</option>
+        </select>
+      </div>
+
+      <!-- Calculate Button -->
+      <button class="btn-calculate" (click)="calculate()" [disabled]="loading">
+        <span *ngIf="loading" class="spinner"></span>
+        <span *ngIf="!loading">Calculate →</span>
+      </button>
+
+      <!-- Result -->
+      <div class="result-box" *ngIf="showResult && result">
+        <div class="result-value">{{ getResultDisplay() }}</div>
+        <div class="result-meta">
+          <div class="meta-item">
+            <div class="meta-label">Operation</div>
+            <div class="meta-value">{{ result.operation }}</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Input 1</div>
+            <div class="meta-value">{{ result.firstValue }} {{ result.firstUnit }}</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Input 2</div>
+            <div class="meta-value">{{ result.secondValue }} {{ result.secondUnit }}</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Type</div>
+            <div class="meta-value">{{ selectedType.toUpperCase() }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Supported Units -->
+    <div class="units-card">
+      <div class="section-label">Supported Units</div>
+      <div class="units-grid">
+        <div class="unit-group" *ngFor="let type of types">
+          <h4>{{ type.icon }} {{ type.key }}</h4>
+          <div class="unit-tags">
+            <span class="unit-tag" *ngFor="let u of unitsMap[type.key]">{{ u }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
