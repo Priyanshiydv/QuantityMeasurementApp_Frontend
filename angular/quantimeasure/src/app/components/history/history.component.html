@@ -42,22 +42,6 @@
     <h1 class="page-title">Calculation History</h1>
     <p class="page-subtitle">Browse your past measurements</p>
 
-    <!-- Mode Toggle -->
-    <div style="display:flex;gap:10px;margin-bottom:16px;">
-      <button
-        class="btn-fetch"
-        [class.btn-count]="historyMode !== 'my'"
-        (click)="switchMode('my')">
-        My History
-      </button>
-      <button
-        class="btn-count"
-        [class.btn-fetch]="historyMode === 'all'"
-        (click)="switchMode('all')">
-        All History
-      </button>
-    </div>
-
     <!-- Filter Bar -->
     <div class="filter-bar">
 

@@ -60,12 +60,6 @@ export class HistoryComponent implements OnInit {
     this.fetchHistory();
   }
 
-  // ── Switch Mode ───────────────────────────────────
-  switchMode(mode: string): void {
-    this.historyMode = mode;
-    this.fetchHistory();
-  }
-
   // ── Update Filter Options ─────────────────────────
   updateFilterOptions(): void {
     this.filterValue = '';
@@ -79,7 +73,6 @@ export class HistoryComponent implements OnInit {
 
     let obs;
 
-    if (this.historyMode === 'my') {
       if (this.filterBy === 'operation' && this.filterValue) {
         obs = this.historyService.getByOperation(this.filterValue);
       } else if (this.filterBy === 'measurement' && this.filterValue) {
@@ -87,41 +80,38 @@ export class HistoryComponent implements OnInit {
       } else {
         obs = this.historyService.getMyHistory();
       }
-    } else {
-      if (this.filterBy === 'operation' && this.filterValue) {
-        obs = this.historyService.getByOperation(this.filterValue);
-      } else if (this.filterBy === 'measurement' && this.filterValue) {
-        obs = this.historyService.getByMeasurement(this.filterValue);
-      } else {
-        obs = this.historyService.getAllHistory();
-      }
-    }
-
-    obs.subscribe({
-      next: (items) => {
-        this.historyItems = items;
-        this.loading      = false;
-      },
-      error: () => {
-        this.loading = false;
-      }
-    });
+      obs.subscribe({
+        next: (items) => {
+          this.historyItems = items;
+          this.loading      = false;
+          },
+          error: () => {
+            this.loading = false;
+          }
+        });
   }
 
   // ── Get Count ─────────────────────────────────────
   getCount(): void {
-    const obs = this.filterBy === 'operation' && this.filterValue
-      ? this.historyService.getCountByOperation(this.filterValue)
-      : this.historyService.getTotalCount();
+    this.loading = true;
 
+    //get users own history
+    let obs;
+    if(this.filterBy === 'operation' && this.filterValue) {
+      obs = this.historyService.getByOperation(this.filterValue);
+    } else if (this.filterBy === 'measurement' && this.filterValue){
+      obs = this.historyService.getByMeasurement(this.filterValue);
+    } else {
+      obs = this.historyService.getMyHistory();
+    }
     obs.subscribe({
-      next: (data: any) => {
-        const count = data.count ?? data.totalCount
-                   ?? data.Count ?? data.TotalCount ?? 0;
-        this.countText = `Total: ${count} record(s)`;
+      next: (items) => {
+        this.countText = `Total: ${items.length} record(s)`;
+        this.loading = false;
       },
       error: () => {
         this.countText = 'Could not fetch count.';
+        this.loading = false;
       }
     });
   }

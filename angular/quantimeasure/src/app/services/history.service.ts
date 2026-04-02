@@ -29,14 +29,14 @@ export class HistoryService {
   // ── Get History By Operation ──────────────────────
   getByOperation(operation: string): Observable<HistoryItem[]> {
     return this.http.get<HistoryItem[]>(
-      `${this.apiUrl}/history/operation/${operation}`
+      `${this.apiUrl}/history/my/operation/${operation}`
     );
   }
 
   // ── Get History By Measurement ────────────────────
   getByMeasurement(type: string): Observable<HistoryItem[]> {
     return this.http.get<HistoryItem[]>(
-      `${this.apiUrl}/history/measurement/${type}`
+      `${this.apiUrl}/history/my/measurement/${type}`
     );
   }
 
