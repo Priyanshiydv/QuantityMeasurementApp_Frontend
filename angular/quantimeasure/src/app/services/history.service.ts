@@ -8,7 +8,7 @@ import { HistoryItem } from '../models/quantity';
 })
 export class HistoryService {
 
-  private apiUrl = 'http://localhost:5092/api/v1/quantities';
+  private apiUrl = 'https://quantitymeasurementapp-ly1a.onrender.com/api/v1/quantities';
 
   constructor(private http: HttpClient) {}
 

@@ -10,7 +10,7 @@ import { AuthResponse } from '../models/auth-response';
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:5092/api/v1/users';
+  private apiUrl = 'https://quantitymeasurementapp-ly1a.onrender.com/api/v1/users';
 
   constructor(
     private http: HttpClient,

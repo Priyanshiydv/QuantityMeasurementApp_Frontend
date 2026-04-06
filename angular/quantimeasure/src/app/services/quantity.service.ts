@@ -7,9 +7,8 @@ import { QuantityInput, QuantityResponse } from '../models/quantity';
   providedIn: 'root'
 })
 export class QuantityService {
-
-  private apiUrl = 'http://localhost:5092/api/v1/quantities';
-
+  private apiUrl = 'https://quantitymeasurementapp-ly1a.onrender.com/api/v1/quantities';
+  
   constructor(private http: HttpClient) {}
 
   // ── Compare ───────────────────────────────────────
