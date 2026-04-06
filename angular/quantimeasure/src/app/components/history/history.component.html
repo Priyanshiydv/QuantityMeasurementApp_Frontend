@@ -1,0 +1,128 @@
+<div class="app-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span>⚖️</span>
+      <h2>Quanti<span>Measure</span></h2>
+    </div>
+
+    <a routerLink="/dashboard" class="nav-item">
+      <span class="nav-icon">🧮</span> Calculator
+    </a>
+    <a routerLink="/history" class="nav-item active">
+      <span class="nav-icon">🕐</span> History
+    </a>
+    <a routerLink="/profile" class="nav-item">
+      <span class="nav-icon">👤</span> Profile
+    </a>
+
+    <div class="sidebar-user">
+      <div class="user-avatar">{{ userAvatar }}</div>
+      <div class="user-info">
+        <div class="user-name">{{ username }}</div>
+        <div class="user-role">Member</div>
+      </div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" (click)="toggleTheme()">
+    <span class="toggle-icon">{{ getThemeIcon() }}</span>
+    {{ getThemeLabel() }}
+    </button>
+
+    <button class="signout-btn" (click)="signOut()">
+      ↪ Sign Out
+    </button>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <h1 class="page-title">Calculation History</h1>
+    <p class="page-subtitle">Browse your past measurements</p>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+
+      <div class="filter-group">
+        <label>Filter By</label>
+        <select [(ngModel)]="filterBy" (change)="updateFilterOptions()">
+          <option value="all">All History</option>
+          <option value="operation">Operation</option>
+          <option value="measurement">Measurement Type</option>
+        </select>
+      </div>
+
+      <div class="filter-group"
+           *ngIf="filterBy !== 'all'">
+        <label>Value</label>
+        <select [(ngModel)]="filterValue">
+          <option value="">Select...</option>
+          <option *ngFor="let opt of currentFilterOptions"
+                  [value]="opt">{{ opt }}</option>
+        </select>
+      </div>
+
+      <button class="btn-fetch" (click)="fetchHistory()">
+        Fetch History
+      </button>
+
+      <button class="btn-count" (click)="getCount()">
+        Get Count
+      </button>
+
+      <div class="count-badge" *ngIf="countText">
+        {{ countText }}
+      </div>
+
+    </div>
+
+    <!-- Loading -->
+    <div class="empty-state" *ngIf="loading">
+      <div class="empty-icon">
+        <span class="spinner"
+              style="width:32px;height:32px;border-width:3px;">
+        </span>
+      </div>
+      <p>Loading...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state"
+         *ngIf="!loading && historyItems.length === 0">
+      <div class="empty-icon">📭</div>
+      <p>No history found. Do some calculations first!</p>
+    </div>
+
+    <!-- History List -->
+    <div *ngIf="!loading && historyItems.length > 0">
+      <div class="history-item"
+           *ngFor="let item of historyItems">
+
+        <div class="op-badge"
+             [ngStyle]="getBadgeStyle(item.operation)">
+          {{ item.operation.toUpperCase() }}
+        </div>
+
+        <div class="history-detail">
+          <strong>{{ getDetail(item) }}</strong>
+          <span style="color:var(--text-secondary)"
+                *ngIf="item.firstMeasurementType">
+            · {{ item.firstMeasurementType }}
+          </span>
+          <span style="color:#fb923c"
+                *ngIf="item.hasError">
+            ⚠️ {{ item.errorMessage }}
+          </span>
+        </div>
+
+        <div class="history-meta">
+          {{ formatTime(item.timestamp) }}
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
